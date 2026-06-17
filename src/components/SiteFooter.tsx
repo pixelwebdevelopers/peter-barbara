@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
+import pixelLogo from "@/assets/pixel-web.png";
 import { CATEGORIES, CONTACT_EMAIL, CONTACT_PHONE, COMPANY_ADDRESS } from "@/lib/catalog";
 
 export function SiteFooter() {
@@ -42,9 +43,21 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-2 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Peter & Barbara Sportswear. All rights reserved.</p>
-          <p>Built for performance. Manufactured in Sialkot, Pakistan.</p>
+        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
+          <div className="space-y-1">
+            <p>© {new Date().getFullYear()} Peter & Barbara Sportswear. All rights reserved.</p>
+            <p>Built for performance. Manufactured in Sialkot, Pakistan.</p>
+          </div>
+          <a
+            href="https://pixelwebdevelopers.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 transition-colors hover:text-brand"
+          >
+            <span>Developed by</span>
+            <img src={pixelLogo} alt="Pixel Web Developers" className="h-6 w-auto" />
+            <span className="font-medium">Pixel Web Developers</span>
+          </a>
         </div>
       </div>
     </footer>

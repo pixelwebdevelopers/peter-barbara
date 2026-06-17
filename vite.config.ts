@@ -12,4 +12,8 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Force Nitro on and target Vercel. `npm run build` then emits Vercel's
+  // Build Output API format (.vercel/output/), which Vercel detects and serves
+  // automatically — no extra Vercel project settings required.
+  nitro: { preset: "vercel" },
 });

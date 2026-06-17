@@ -12,6 +12,7 @@ dist
 dist-ssr
 .output
 .vinxi
+.vercel
 .tanstack/**
 .nitro
 *.local
@@ -19,6 +20,9 @@ dist-ssr
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
+
+# Vercel
+.vercel
 
 # Editor directories and files
 .vscode/*
