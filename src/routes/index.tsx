@@ -1,10 +1,60 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CATEGORIES } from "@/lib/catalog";
+import { getCoverImage } from "@/lib/productImages";
 import { SiteLayout } from "@/components/SiteLayout";
-import { ArrowRight } from "lucide-react";
-import hero1 from "@/assets/hero-1.jpg.asset.json";
-import hero2 from "@/assets/hero-2.jpg.asset.json";
-import hero3 from "@/assets/hero-3.jpg.asset.json";
+import { ProductCarousel, type CarouselProduct } from "@/components/ProductCarousel";
+import {
+  ArrowRight,
+  Dumbbell,
+  Trophy,
+  Gauge,
+  Wind,
+  Flower2,
+  Bike,
+  ShoppingBag,
+  ClipboardList,
+  Scissors,
+  Factory,
+  Truck,
+  type LucideIcon,
+} from "lucide-react";
+import hero1 from "@/assets/hero-1.jpg";
+import hero2 from "@/assets/hero-2.jpg";
+import hero3 from "@/assets/hero-3.jpg";
+
+// Relevant icon per category (replaces the old 01–07 numbering on the home grid).
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  activewear: Dumbbell,
+  "team-sportswear": Trophy,
+  "performance-wear": Gauge,
+  outerwear: Wind,
+  "yoga-lifestyle": Flower2,
+  "sport-specific": Bike,
+  accessories: ShoppingBag,
+};
+
+// Home page shows every category except the last (Accessories — still reachable
+// from the header, footer and /categories).
+const HOME_CATEGORIES = CATEGORIES.filter((c) => c.slug !== "accessories");
+
+// Carousel 1 — one signature product per category, links to that category page.
+const FEATURED: CarouselProduct[] = HOME_CATEGORIES.flatMap((cat) => {
+  for (const sub of cat.subcategories) {
+    const cover = getCoverImage(cat.slug, sub.slug);
+    if (cover) return [{ image: cover, title: cat.name, subtitle: "Explore category", slug: cat.slug }];
+  }
+  return [];
+});
+
+// Carousel 2 — every sub-category, links straight to its section on the category page.
+const EXPLORE: CarouselProduct[] = HOME_CATEGORIES.flatMap((cat) =>
+  cat.subcategories.flatMap((sub) => {
+    const cover = getCoverImage(cat.slug, sub.slug);
+    return cover
+      ? [{ image: cover, title: sub.name, subtitle: cat.short, slug: cat.slug, hash: sub.slug }]
+      : [];
+  }),
+);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -13,7 +63,7 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Premium sportswear manufactured in Sialkot, Pakistan for international brands and importers. Activewear, team uniforms, performance wear, accessories." },
       { property: "og:title", content: "Peter & Barbara Sportswear — Built for Performance" },
       { property: "og:description", content: "B2B sportswear manufacturer in Sialkot, Pakistan." },
-      { property: "og:image", content: hero1.url },
+      { property: "og:image", content: hero1 },
     ],
   }),
   component: Home,
@@ -25,7 +75,7 @@ function Home() {
       {/* HERO */}
       <section className="relative h-[88vh] min-h-[640px] w-full overflow-hidden bg-black">
         <img
-          src={hero1.url}
+          src={hero1}
           alt="Athlete in motion wearing performance sportswear"
           className="absolute inset-0 h-full w-full object-cover opacity-80"
         />
@@ -70,13 +120,29 @@ function Home() {
         </div>
       </section>
 
+      {/* FEATURED CAROUSEL */}
+      <section className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <p className="eyebrow text-brand">Featured</p>
+            <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+              Signature pieces across the range.
+            </h2>
+          </div>
+          <Link to="/categories" className="eyebrow inline-flex items-center gap-2 hover:text-brand">
+            View all <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <ProductCarousel items={FEATURED} />
+      </section>
+
       {/* CATEGORY GRID */}
       <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="eyebrow text-brand">The Catalog</p>
             <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-              Seven categories.<br />One manufacturing partner.
+              Built for every sport.<br />One manufacturing partner.
             </h2>
           </div>
           <Link to="/categories" className="eyebrow inline-flex items-center gap-2 hover:text-brand">
@@ -85,28 +151,29 @@ function Home() {
         </div>
 
         <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {CATEGORIES.map((cat, i) => (
-            <Link
-              key={cat.slug}
-              to="/category/$slug"
-              params={{ slug: cat.slug }}
-              className="group flex flex-col bg-background p-8 transition-colors hover:bg-foreground hover:text-background"
-            >
-              <span className="eyebrow text-muted-foreground group-hover:text-background/60">
-                0{i + 1}
-              </span>
-              <h3 className="mt-8 text-2xl font-bold tracking-tight">{cat.name}</h3>
-              <p className="mt-3 flex-1 text-sm text-muted-foreground group-hover:text-background/70">
-                {cat.tagline}
-              </p>
-              <div className="mt-8 flex items-center justify-between">
-                <span className="text-xs text-muted-foreground group-hover:text-background/60">
-                  {cat.subcategories.length} product types
-                </span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </div>
-            </Link>
-          ))}
+          {HOME_CATEGORIES.map((cat) => {
+            const Icon = CATEGORY_ICONS[cat.slug] ?? Dumbbell;
+            return (
+              <Link
+                key={cat.slug}
+                to="/category/$slug"
+                params={{ slug: cat.slug }}
+                className="group flex flex-col bg-background p-8 transition-colors hover:bg-foreground hover:text-background"
+              >
+                <Icon className="h-8 w-8 text-brand transition-colors group-hover:text-background" strokeWidth={1.5} />
+                <h3 className="mt-8 text-2xl font-bold tracking-tight">{cat.name}</h3>
+                <p className="mt-3 flex-1 text-sm text-muted-foreground group-hover:text-background/70">
+                  {cat.tagline}
+                </p>
+                <div className="mt-8 flex items-center justify-between">
+                  <span className="text-xs text-muted-foreground group-hover:text-background/60">
+                    {cat.subcategories.length} product types
+                  </span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -114,7 +181,7 @@ function Home() {
       <section className="bg-secondary/50">
         <div className="mx-auto grid max-w-7xl gap-0 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="aspect-[4/5] overflow-hidden lg:aspect-auto">
-            <img src={hero2.url} alt="Athlete training in Peter & Barbara performance gear" className="h-full w-full object-cover" />
+            <img src={hero2} alt="Athlete training in Peter & Barbara performance gear" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col justify-center px-0 py-20 lg:px-16">
             <p className="eyebrow text-brand">Made in Sialkot</p>
@@ -145,23 +212,41 @@ function Home() {
         </h2>
         <div className="mt-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {[
-            { n: "01", t: "Inquiry", d: "Share your tech-pack, reference or concept. We respond within 24 hours with feasibility and indicative pricing." },
-            { n: "02", t: "Sampling", d: "Approved samples shipped within 7–14 days. Iterate on fabric, fit and finishing until it's right." },
-            { n: "03", t: "Production", d: "Bulk manufacturing with mid-line QC, full inspection and ethical compliance reporting." },
-            { n: "04", t: "Delivery", d: "Sea, air or courier — DDP or FOB. Your goods on time, every time." },
+            { Icon: ClipboardList, t: "Inquiry", d: "Share your tech-pack, reference or concept. We respond within 24 hours with feasibility and indicative pricing." },
+            { Icon: Scissors, t: "Sampling", d: "Approved samples shipped within 7–14 days. Iterate on fabric, fit and finishing until it's right." },
+            { Icon: Factory, t: "Production", d: "Bulk manufacturing with mid-line QC, full inspection and ethical compliance reporting." },
+            { Icon: Truck, t: "Delivery", d: "Sea, air or courier — DDP or FOB. Your goods on time, every time." },
           ].map((s) => (
-            <div key={s.n} className="border-t border-foreground pt-6">
-              <span className="eyebrow text-brand">{s.n}</span>
-              <h3 className="mt-3 text-xl font-bold">{s.t}</h3>
+            <div key={s.t} className="border-t border-foreground pt-6">
+              <s.Icon className="h-8 w-8 text-brand" strokeWidth={1.5} />
+              <h3 className="mt-4 text-xl font-bold">{s.t}</h3>
               <p className="mt-3 text-sm text-muted-foreground">{s.d}</p>
             </div>
           ))}
         </div>
       </section>
 
+      {/* EXPLORE CAROUSEL */}
+      <section className="border-t border-border bg-secondary/40 py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="eyebrow text-brand">Explore the range</p>
+              <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+                Browse by product type.
+              </h2>
+            </div>
+            <Link to="/categories" className="eyebrow inline-flex items-center gap-2 hover:text-brand">
+              View all <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <ProductCarousel items={EXPLORE} />
+        </div>
+      </section>
+
       {/* CTA BAND */}
       <section className="relative overflow-hidden bg-foreground text-background">
-        <img src={hero3.url} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
+        <img src={hero3} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
         <div className="relative mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 lg:px-8">
           <p className="eyebrow text-background/70">Let's build your line</p>
           <h2 className="mt-4 text-4xl font-bold sm:text-5xl lg:text-6xl">

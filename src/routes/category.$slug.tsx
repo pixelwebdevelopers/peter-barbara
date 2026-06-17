@@ -1,5 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { CATEGORIES, getCategory, inquireWhatsappLink, type Category } from "@/lib/catalog";
+import { getImages } from "@/lib/productImages";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowRight, ArrowLeft } from "lucide-react";
@@ -64,10 +65,9 @@ function CategoryPage() {
 
       {/* Subcategory sections — each has its own image grid */}
       {cat.subcategories.map((sub, sIdx) => {
-        const folder = `/products/${cat.slug}/${sub.slug}`;
-        const images = Array.from({ length: sub.images }, (_, i) => `${folder}/${i + 1}.jpg`);
+        const images = getImages(cat.slug, sub.slug);
         return (
-          <section key={sub.slug} className="border-b border-border">
+          <section key={sub.slug} id={sub.slug} className="scroll-mt-24 border-b border-border">
             <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
               <div className="flex flex-col items-start justify-between gap-6 border-b border-border pb-8 sm:flex-row sm:items-end">
                 <div>
@@ -89,17 +89,23 @@ function CategoryPage() {
                 </div>
               </div>
 
-              <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-                {images.map((img, i) => (
-                  <ProductCard
-                    key={img}
-                    image={img}
-                    name={`${sub.name} ${String(i + 1).padStart(2, "0")}`}
-                    sku={`${sub.sku}-${String(i + 1).padStart(3, "0")}`}
-                    description={sub.description}
-                  />
-                ))}
-              </div>
+              {images.length > 0 ? (
+                <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+                  {images.map((img, i) => (
+                    <ProductCard
+                      key={img}
+                      image={img}
+                      name={`${sub.name} ${String(i + 1).padStart(2, "0")}`}
+                      sku={`${sub.sku}-${String(i + 1).padStart(3, "0")}`}
+                      description={sub.description}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-10 text-sm text-muted-foreground">
+                  New styles coming soon — contact us for the latest {sub.name.toLowerCase()} samples.
+                </p>
+              )}
             </div>
           </section>
         );

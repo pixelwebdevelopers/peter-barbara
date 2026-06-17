@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/logo.png.asset.json";
+import logo from "@/assets/logo.png";
 import { CATEGORIES, CONTACT_EMAIL, CONTACT_PHONE, COMPANY_ADDRESS } from "@/lib/catalog";
 
 export function SiteFooter() {
@@ -8,7 +8,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <img src={logo.url} alt="Peter & Barbara" className="h-12 w-auto" />
+            <img src={logo} alt="Peter & Barbara" className="h-12 w-auto" />
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               B2B sportswear manufacturer based in Sialkot, Pakistan — supplying premium activewear, team kits and accessories to international brands and importers.
             </p>
