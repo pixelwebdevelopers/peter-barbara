@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: "How do I request a quote?",
-    a: "Use the Contact page, WhatsApp us directly, or email info@peterandbarbara.com with your tech-pack or product brief. We respond to all inquiries within 24 hours.",
+    a: "Use the Contact page, WhatsApp us directly, or email info@peterbarbara.com with your tech-pack or product brief. We respond to all inquiries within 24 hours.",
   },
 ];
 

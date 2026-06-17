@@ -3,6 +3,7 @@ import { CATEGORIES } from "@/lib/catalog";
 import { getCoverImage } from "@/lib/productImages";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ProductCarousel, type CarouselProduct } from "@/components/ProductCarousel";
+import { HeroSlideshow } from "@/components/HeroSlideshow";
 import {
   ArrowRight,
   Dumbbell,
@@ -18,9 +19,13 @@ import {
   Truck,
   type LucideIcon,
 } from "lucide-react";
-import hero1 from "@/assets/hero-1.jpg";
+import hero11 from "@/assets/hero-1-1.jpg";
+import hero12 from "@/assets/hero-1-2.jpg";
+import hero13 from "@/assets/hero-1-3.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
+
+const HERO_SLIDES = [hero11, hero12, hero13];
 
 // Relevant icon per category (replaces the old 01–07 numbering on the home grid).
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
@@ -63,7 +68,7 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Premium sportswear manufactured in Sialkot, Pakistan for international brands and importers. Activewear, team uniforms, performance wear, accessories." },
       { property: "og:title", content: "Peter & Barbara Sportswear — Built for Performance" },
       { property: "og:description", content: "B2B sportswear manufacturer in Sialkot, Pakistan." },
-      { property: "og:image", content: hero1 },
+      { property: "og:image", content: hero11 },
     ],
   }),
   component: Home,
@@ -74,12 +79,8 @@ function Home() {
     <SiteLayout>
       {/* HERO */}
       <section className="relative h-[88vh] min-h-[640px] w-full overflow-hidden bg-black">
-        <img
-          src={hero1}
-          alt="Athlete in motion wearing performance sportswear"
-          className="absolute inset-0 h-full w-full object-cover opacity-80"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/70" />
+        <HeroSlideshow images={HERO_SLIDES} />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/70" />
         <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-4 pb-20 sm:px-6 lg:px-8">
           <p className="eyebrow text-white/80">B2B Sportswear Manufacturer · Sialkot, Pakistan</p>
           <h1 className="mt-4 max-w-3xl text-5xl font-extrabold leading-[0.95] text-white sm:text-6xl lg:text-7xl">

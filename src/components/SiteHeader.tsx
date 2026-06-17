@@ -11,8 +11,15 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:grid lg:grid-cols-3 lg:px-8">
-        {/* Left nav (desktop) */}
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Logo (left) */}
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
+            <img src={logo} alt="Peter & Barbara Sportswear" className="h-11 w-auto sm:h-12" />
+          </Link>
+        </div>
+
+        {/* Nav (desktop, right) */}
         <nav className="hidden items-center gap-7 text-sm font-medium lg:flex">
           <div
             className="relative"
@@ -24,7 +31,7 @@ export function SiteHeader() {
               <ChevronDown className="h-3 w-3" />
             </button>
             {catsOpen && (
-              <div className="absolute left-0 top-full w-[420px] border border-border bg-background p-4 shadow-lg">
+              <div className="absolute right-0 top-full w-[420px] border border-border bg-background p-4 shadow-lg">
                 <ul className="space-y-1">
                   {CATEGORIES.map((c) => (
                     <li key={c.slug}>
@@ -45,17 +52,6 @@ export function SiteHeader() {
             )}
           </div>
           <Link to="/categories" className="eyebrow hover:text-brand">All Products</Link>
-        </nav>
-
-        {/* Center logo */}
-        <div className="flex items-center lg:justify-center">
-          <Link to="/" className="flex items-center" onClick={() => setOpen(false)}>
-            <img src={logo} alt="Peter & Barbara Sportswear" className="h-11 w-auto sm:h-12" />
-          </Link>
-        </div>
-
-        {/* Right nav (desktop) */}
-        <nav className="hidden items-center justify-end gap-7 text-sm font-medium lg:flex">
           <Link to="/about" className="eyebrow hover:text-brand">About</Link>
           <Link to="/faq" className="eyebrow hover:text-brand">FAQ</Link>
           <Link to="/contact" className="eyebrow rounded-none border border-foreground bg-foreground px-4 py-2 text-background hover:border-brand hover:bg-brand">
