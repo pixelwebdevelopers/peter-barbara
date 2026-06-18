@@ -57,7 +57,7 @@ function Contact() {
                 <li className="flex gap-3">
                   <MapPin className="mt-0.5 h-5 w-5 text-brand" />
                   <div>
-                    <p className="text-sm font-medium">Factory</p>
+                    <p className="text-sm font-medium">Address</p>
                     <p className="text-sm text-muted-foreground">{COMPANY_ADDRESS}</p>
                   </div>
                 </li>
