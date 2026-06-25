@@ -25,7 +25,7 @@ export const CATEGORIES: Category[] = [
     subcategories: [
       { slug: "tshirts", name: "Dri-Fit T-Shirts", sku: "PB-AW-TS", description: "Lightweight polyester / poly-blend tees with moisture-wicking finish." },
       { slug: "shorts", name: "Performance Shorts", sku: "PB-AW-SH", description: "Training shorts with bonded waistbands and inner liners." },
-      { slug: "leggings", name: "Leggings & Tights", sku: "PB-AW-LG", description: "Compressive leggings with high-rise waistbands." },
+      { slug: "sweat-shirts", name: "Sweatshirts", sku: "PB-AW-SW", description: "Heavyweight crew-neck sweatshirts in brushed fleece and french terry." },
       { slug: "tank-tops", name: "Tank Tops", sku: "PB-AW-TT", description: "Cut-and-sew tanks for gym, training and lifestyle programs." },
       { slug: "compression", name: "Compression Wear", sku: "PB-AW-CP", description: "Graduated compression tops and bottoms for athletic recovery." },
     ],
@@ -69,8 +69,8 @@ export const CATEGORIES: Category[] = [
     subcategories: [
       { slug: "tracksuits", name: "Tracksuits", sku: "PB-OW-TS", description: "Matching jacket and pant sets in tricot, fleece and woven." },
       { slug: "hoodies", name: "Hoodies", sku: "PB-OW-HD", description: "320–450gsm fleece hoodies with custom embroidery / print." },
-      { slug: "jackets", name: "Jackets & Windbreakers", sku: "PB-OW-JK", description: "Coach jackets, windbreakers and bonded shells." },
-      { slug: "jogging-suits", name: "Jogging Suits", sku: "PB-OW-JG", description: "Lightweight jog sets in poly-spandex and french terry." },
+      { slug: "bomber-jackets", name: "Bomber Jackets", sku: "PB-OW-BJ", description: "Classic bomber silhouettes with ribbed trims and zip fronts." },
+      { slug: "windbreaker", name: "Windbreakers", sku: "PB-OW-WB", description: "Lightweight wind- and water-resistant shells, packable options available." },
     ],
   },
   {
