@@ -7,10 +7,18 @@ type Props = {
   sku: string;
   description: string;
   image: string;
+  alternateImage?: string;
 };
 
-export function ProductCard({ name, sku, description, image }: Props) {
+export function ProductCard({ name, sku, description, image, alternateImage }: Props) {
   const [open, setOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState<string>(image);
+
+  useEffect(() => {
+    if (open) {
+      setActiveImage(alternateImage || image);
+    }
+  }, [open, image, alternateImage]);
 
   useEffect(() => {
     if (!open) return;
@@ -60,7 +68,7 @@ export function ProductCard({ name, sku, description, image }: Props) {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/95 p-4 backdrop-blur-sm"
           onClick={() => setOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -69,17 +77,58 @@ export function ProductCard({ name, sku, description, image }: Props) {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center bg-background/90 text-foreground hover:bg-background"
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center bg-background/90 text-foreground hover:bg-background z-10"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
           </button>
-          <img
-            src={image}
-            alt={name}
+          
+          <div
+            className="relative flex flex-col items-center gap-6 max-h-[90vh] max-w-[90vw]"
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[90vh] max-w-[90vw] object-contain"
-          />
+          >
+            <div className="flex items-center justify-center flex-1 min-h-0">
+              <img
+                src={activeImage}
+                alt={name}
+                className="max-h-[70vh] max-w-[90vw] object-contain rounded-md shadow-2xl"
+              />
+            </div>
+            {alternateImage && (
+              <div className="flex gap-4 p-2.5 bg-secondary/30 rounded-xl border border-border/30 backdrop-blur-md shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setActiveImage(image)}
+                  className={`relative h-20 w-20 overflow-hidden rounded-lg border-2 bg-background/50 transition-all ${
+                    activeImage === image
+                      ? "border-brand scale-105 shadow-md shadow-brand/10"
+                      : "border-transparent opacity-60 hover:opacity-100"
+                  }`}
+                  aria-label="View front view"
+                >
+                  <img src={image} alt="View 1" className="h-full w-full object-cover" />
+                  <span className="absolute bottom-1 right-1 bg-black/60 px-1.5 py-0.5 text-[8px] font-semibold text-white rounded">
+                    View 1
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveImage(alternateImage)}
+                  className={`relative h-20 w-20 overflow-hidden rounded-lg border-2 bg-background/50 transition-all ${
+                    activeImage === alternateImage
+                      ? "border-brand scale-105 shadow-md shadow-brand/10"
+                      : "border-transparent opacity-60 hover:opacity-100"
+                  }`}
+                  aria-label="View alternate view"
+                >
+                  <img src={alternateImage} alt="View 2" className="h-full w-full object-cover" />
+                  <span className="absolute bottom-1 right-1 bg-black/60 px-1.5 py-0.5 text-[8px] font-semibold text-white rounded">
+                    View 2
+                  </span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </article>

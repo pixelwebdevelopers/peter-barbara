@@ -65,7 +65,7 @@ function CategoryPage() {
 
       {/* Subcategory sections — each has its own image grid */}
       {cat.subcategories.map((sub, sIdx) => {
-        const images = getImages(cat.slug, sub.slug);
+        const products = getImages(cat.slug, sub.slug);
         return (
           <section key={sub.slug} id={sub.slug} className="scroll-mt-24 border-b border-border">
             <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
@@ -89,12 +89,13 @@ function CategoryPage() {
                 </div>
               </div>
 
-              {images.length > 0 ? (
+              {products.length > 0 ? (
                 <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-                  {images.map((img, i) => (
+                  {products.map((prod, i) => (
                     <ProductCard
-                      key={img}
-                      image={img}
+                      key={prod.id}
+                      image={prod.image}
+                      alternateImage={prod.alternateImage}
                       name={`${sub.name} ${String(i + 1).padStart(2, "0")}`}
                       sku={`${sub.sku}-${String(i + 1).padStart(3, "0")}`}
                       description={sub.description}
