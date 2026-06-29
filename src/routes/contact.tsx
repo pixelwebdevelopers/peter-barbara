@@ -8,7 +8,11 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Peter & Barbara Sportswear, Sialkot" },
-      { name: "description", content: "Get in touch with Peter & Barbara Sportswear in Sialkot, Pakistan for B2B sportswear manufacturing inquiries." },
+      {
+        name: "description",
+        content:
+          "Get in touch with Peter & Barbara Sportswear in Sialkot, Pakistan for B2B sportswear manufacturing inquiries.",
+      },
       { property: "og:title", content: "Contact — Peter & Barbara Sportswear" },
       { property: "og:description", content: "Get in touch for B2B manufacturing inquiries." },
     ],
@@ -43,7 +47,8 @@ function Contact() {
           Let's build your line.
         </h1>
         <p className="mt-4 max-w-xl text-muted-foreground">
-          Send us your tech-pack, reference samples or just a question. We reply to every inquiry within 24 hours.
+          Send us your tech-pack, reference samples or just a question. We reply to every inquiry
+          within 24 hours.
         </p>
       </section>
 
@@ -65,14 +70,24 @@ function Contact() {
                   <Mail className="mt-0.5 h-5 w-5 text-brand" />
                   <div>
                     <p className="text-sm font-medium">Email</p>
-                    <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm text-muted-foreground hover:text-brand">{CONTACT_EMAIL}</a>
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      className="text-sm text-muted-foreground hover:text-brand"
+                    >
+                      {CONTACT_EMAIL}
+                    </a>
                   </div>
                 </li>
                 <li className="flex gap-3">
                   <Phone className="mt-0.5 h-5 w-5 text-brand" />
                   <div>
                     <p className="text-sm font-medium">Phone</p>
-                    <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="text-sm text-muted-foreground hover:text-brand">{CONTACT_PHONE}</a>
+                    <a
+                      href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
+                      className="text-sm text-muted-foreground hover:text-brand"
+                    >
+                      {CONTACT_PHONE}
+                    </a>
                   </div>
                 </li>
                 <li className="flex gap-3">
@@ -81,7 +96,8 @@ function Contact() {
                     <p className="text-sm font-medium">WhatsApp</p>
                     <a
                       href={`https://wa.me/${WHATSAPP_NUMBER}`}
-                      target="_blank" rel="noopener noreferrer"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-sm text-muted-foreground hover:text-brand"
                     >
                       Chat instantly
@@ -110,7 +126,11 @@ function Contact() {
                 <Field label="Phone (optional)" name="phone" />
                 <div className="sm:col-span-2">
                   <label className="eyebrow text-muted-foreground">Interested in</label>
-                  <select name="category" required className="mt-2 block w-full border border-border bg-background px-4 py-3 text-sm focus:border-brand focus:outline-none">
+                  <select
+                    name="category"
+                    required
+                    className="mt-2 block w-full border border-border bg-background px-4 py-3 text-sm focus:border-brand focus:outline-none"
+                  >
                     <option value="">Select a category…</option>
                     <option>Activewear & Gym Wear</option>
                     <option>Team Sportswear & Uniforms</option>
@@ -125,14 +145,19 @@ function Contact() {
                 <div className="sm:col-span-2">
                   <label className="eyebrow text-muted-foreground">Your message</label>
                   <textarea
-                    name="message" rows={6} required
+                    name="message"
+                    rows={6}
+                    required
                     placeholder="Tell us about your project — quantities, fabrics, target price, lead time, etc."
                     className="mt-2 block w-full border border-border bg-background px-4 py-3 text-sm focus:border-brand focus:outline-none"
                   />
                 </div>
               </div>
 
-              <button type="submit" className="eyebrow mt-8 inline-flex items-center gap-2 bg-brand px-8 py-4 text-brand-foreground hover:bg-brand/90">
+              <button
+                type="submit"
+                className="eyebrow mt-8 inline-flex items-center gap-2 bg-brand px-8 py-4 text-brand-foreground hover:bg-brand/90"
+              >
                 Send via WhatsApp
               </button>
 
@@ -149,12 +174,24 @@ function Contact() {
   );
 }
 
-function Field({ label, name, type = "text", required = false }: { label: string; name: string; type?: string; required?: boolean }) {
+function Field({
+  label,
+  name,
+  type = "text",
+  required = false,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+}) {
   return (
     <div>
       <label className="eyebrow text-muted-foreground">{label}</label>
       <input
-        name={name} type={type} required={required}
+        name={name}
+        type={type}
+        required={required}
         className="mt-2 block w-full border border-border bg-background px-4 py-3 text-sm focus:border-brand focus:outline-none"
       />
     </div>

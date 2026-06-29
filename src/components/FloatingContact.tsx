@@ -11,15 +11,22 @@ export function FloatingContact() {
         <div className="flex flex-col gap-2 rounded-md border border-border bg-background p-3 shadow-xl">
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hello Peter & Barbara, I'd like to inquire about your sportswear products.")}`}
-            target="_blank" rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-3 rounded px-3 py-2 text-sm hover:bg-muted"
           >
             <MessageCircle className="h-4 w-4 text-brand" /> WhatsApp
           </a>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="flex items-center gap-3 rounded px-3 py-2 text-sm hover:bg-muted">
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="flex items-center gap-3 rounded px-3 py-2 text-sm hover:bg-muted"
+          >
             <Mail className="h-4 w-4 text-brand" /> Email us
           </a>
-          <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="flex items-center gap-3 rounded px-3 py-2 text-sm hover:bg-muted">
+          <a
+            href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
+            className="flex items-center gap-3 rounded px-3 py-2 text-sm hover:bg-muted"
+          >
             <Phone className="h-4 w-4 text-brand" /> Call us
           </a>
         </div>

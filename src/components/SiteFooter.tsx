@@ -11,7 +11,8 @@ export function SiteFooter() {
           <div className="lg:col-span-1">
             <img src={logo} alt="Peter & Barbara" className="h-12 w-auto" />
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              B2B sportswear manufacturer based in Sialkot, Pakistan — supplying premium activewear, team kits and accessories to international brands and importers.
+              B2B sportswear manufacturer based in Sialkot, Pakistan — supplying premium activewear,
+              team kits and accessories to international brands and importers.
             </p>
           </div>
 
@@ -32,10 +33,21 @@ export function SiteFooter() {
             <p className="eyebrow text-muted-foreground">Contact</p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>{COMPANY_ADDRESS}</li>
-              <li><a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-brand">{CONTACT_EMAIL}</a></li>
-              <li><a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="hover:text-brand">{CONTACT_PHONE}</a></li>
+              <li>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-brand">
+                  {CONTACT_EMAIL}
+                </a>
+              </li>
+              <li>
+                <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="hover:text-brand">
+                  {CONTACT_PHONE}
+                </a>
+              </li>
               <li className="pt-2">
-                <Link to="/contact" className="eyebrow inline-block border border-foreground px-4 py-2 hover:bg-foreground hover:text-background">
+                <Link
+                  to="/contact"
+                  className="eyebrow inline-block border border-foreground px-4 py-2 hover:bg-foreground hover:text-background"
+                >
                   Request a Quote
                 </Link>
               </li>

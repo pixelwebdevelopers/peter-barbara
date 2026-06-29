@@ -46,7 +46,8 @@ const HOME_CATEGORIES = CATEGORIES.filter((c) => c.slug !== "accessories");
 const FEATURED: CarouselProduct[] = HOME_CATEGORIES.flatMap((cat) => {
   for (const sub of cat.subcategories) {
     const cover = getCoverImage(cat.slug, sub.slug);
-    if (cover) return [{ image: cover, title: cat.name, subtitle: "Explore category", slug: cat.slug }];
+    if (cover)
+      return [{ image: cover, title: cat.name, subtitle: "Explore category", slug: cat.slug }];
   }
   return [];
 });
@@ -65,7 +66,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Peter & Barbara Sportswear — B2B Manufacturer, Sialkot Pakistan" },
-      { name: "description", content: "Premium sportswear manufactured in Sialkot, Pakistan for international brands and importers. Activewear, team uniforms, performance wear, accessories." },
+      {
+        name: "description",
+        content:
+          "Premium sportswear manufactured in Sialkot, Pakistan for international brands and importers. Activewear, team uniforms, performance wear, accessories.",
+      },
       { property: "og:title", content: "Peter & Barbara Sportswear — Built for Performance" },
       { property: "og:description", content: "B2B sportswear manufacturer in Sialkot, Pakistan." },
       { property: "og:image", content: hero11 },
@@ -89,7 +94,9 @@ function Home() {
             <span className="text-white/70">Made for your brand.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base text-white/80 sm:text-lg">
-            Full-package sportswear manufacturing for international brands, retailers and federations. Cut-and-sew, sublimation, embroidery and bespoke development — under one roof.
+            Full-package sportswear manufacturing for international brands, retailers and
+            federations. Cut-and-sew, sublimation, embroidery and bespoke development — under one
+            roof.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -130,7 +137,10 @@ function Home() {
               Signature pieces across the range.
             </h2>
           </div>
-          <Link to="/categories" className="eyebrow inline-flex items-center gap-2 hover:text-brand">
+          <Link
+            to="/categories"
+            className="eyebrow inline-flex items-center gap-2 hover:text-brand"
+          >
             View all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -143,10 +153,15 @@ function Home() {
           <div>
             <p className="eyebrow text-brand">The Catalog</p>
             <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-              Built for every sport.<br />One manufacturing partner.
+              Built for every sport.
+              <br />
+              One manufacturing partner.
             </h2>
           </div>
-          <Link to="/categories" className="eyebrow inline-flex items-center gap-2 hover:text-brand">
+          <Link
+            to="/categories"
+            className="eyebrow inline-flex items-center gap-2 hover:text-brand"
+          >
             View all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -161,7 +176,10 @@ function Home() {
                 params={{ slug: cat.slug }}
                 className="group flex flex-col bg-background p-8 transition-colors hover:bg-foreground hover:text-background"
               >
-                <Icon className="h-8 w-8 text-brand transition-colors group-hover:text-background" strokeWidth={1.5} />
+                <Icon
+                  className="h-8 w-8 text-brand transition-colors group-hover:text-background"
+                  strokeWidth={1.5}
+                />
                 <h3 className="mt-8 text-2xl font-bold tracking-tight">{cat.name}</h3>
                 <p className="mt-3 flex-1 text-sm text-muted-foreground group-hover:text-background/70">
                   {cat.tagline}
@@ -182,23 +200,43 @@ function Home() {
       <section className="bg-secondary/50">
         <div className="mx-auto grid max-w-7xl gap-0 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div className="aspect-[4/5] overflow-hidden lg:aspect-auto">
-            <img src={hero2} alt="Athlete training in Peter & Barbara performance gear" className="h-full w-full object-cover" />
+            <img
+              src={hero2}
+              alt="Athlete training in Peter & Barbara performance gear"
+              className="h-full w-full object-cover"
+            />
           </div>
           <div className="flex flex-col justify-center px-0 py-20 lg:px-16">
             <p className="eyebrow text-brand">Made in Sialkot</p>
             <h2 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-              A heritage of craft.<br />A standard for sport.
+              A heritage of craft.
+              <br />A standard for sport.
             </h2>
             <p className="mt-6 text-muted-foreground">
-              Sialkot has supplied the world's sporting goods for over a century. Peter & Barbara extends that legacy into modern technical apparel — pairing skilled local craftsmanship with international quality systems, sustainable fabrics and rapid sampling.
+              Sialkot has supplied the world's sporting goods for over a century. Peter & Barbara
+              extends that legacy into modern technical apparel — pairing skilled local
+              craftsmanship with international quality systems, sustainable fabrics and rapid
+              sampling.
             </p>
             <ul className="mt-8 space-y-3 text-sm">
-              <li className="flex gap-3"><span className="text-brand">●</span> In-house fabric sourcing, cutting, sewing, printing and embroidery</li>
-              <li className="flex gap-3"><span className="text-brand">●</span> Sample-to-bulk in as little as 4 weeks</li>
-              <li className="flex gap-3"><span className="text-brand">●</span> Compliance with EU and US import standards</li>
-              <li className="flex gap-3"><span className="text-brand">●</span> Direct factory pricing — no middlemen</li>
+              <li className="flex gap-3">
+                <span className="text-brand">●</span> In-house fabric sourcing, cutting, sewing,
+                printing and embroidery
+              </li>
+              <li className="flex gap-3">
+                <span className="text-brand">●</span> Sample-to-bulk in as little as 4 weeks
+              </li>
+              <li className="flex gap-3">
+                <span className="text-brand">●</span> Compliance with EU and US import standards
+              </li>
+              <li className="flex gap-3">
+                <span className="text-brand">●</span> Direct factory pricing — no middlemen
+              </li>
             </ul>
-            <Link to="/about" className="eyebrow mt-10 inline-flex w-fit items-center gap-2 border border-foreground px-5 py-3 hover:bg-foreground hover:text-background">
+            <Link
+              to="/about"
+              className="eyebrow mt-10 inline-flex w-fit items-center gap-2 border border-foreground px-5 py-3 hover:bg-foreground hover:text-background"
+            >
               About the factory <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -213,10 +251,26 @@ function Home() {
         </h2>
         <div className="mt-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {[
-            { Icon: ClipboardList, t: "Inquiry", d: "Share your tech-pack, reference or concept. We respond within 24 hours with feasibility and indicative pricing." },
-            { Icon: Scissors, t: "Sampling", d: "Approved samples shipped within 7–14 days. Iterate on fabric, fit and finishing until it's right." },
-            { Icon: Factory, t: "Production", d: "Bulk manufacturing with mid-line QC, full inspection and ethical compliance reporting." },
-            { Icon: Truck, t: "Delivery", d: "Sea, air or courier — DDP or FOB. Your goods on time, every time." },
+            {
+              Icon: ClipboardList,
+              t: "Inquiry",
+              d: "Share your tech-pack, reference or concept. We respond within 24 hours with feasibility and indicative pricing.",
+            },
+            {
+              Icon: Scissors,
+              t: "Sampling",
+              d: "Approved samples shipped within 7–14 days. Iterate on fabric, fit and finishing until it's right.",
+            },
+            {
+              Icon: Factory,
+              t: "Production",
+              d: "Bulk manufacturing with mid-line QC, full inspection and ethical compliance reporting.",
+            },
+            {
+              Icon: Truck,
+              t: "Delivery",
+              d: "Sea, air or courier — DDP or FOB. Your goods on time, every time.",
+            },
           ].map((s) => (
             <div key={s.t} className="border-t border-foreground pt-6">
               <s.Icon className="h-8 w-8 text-brand" strokeWidth={1.5} />
@@ -237,7 +291,10 @@ function Home() {
                 Browse by product type.
               </h2>
             </div>
-            <Link to="/categories" className="eyebrow inline-flex items-center gap-2 hover:text-brand">
+            <Link
+              to="/categories"
+              className="eyebrow inline-flex items-center gap-2 hover:text-brand"
+            >
               View all <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -247,20 +304,31 @@ function Home() {
 
       {/* CTA BAND */}
       <section className="relative overflow-hidden bg-foreground text-background">
-        <img src={hero3} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
+        <img
+          src={hero3}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-30"
+        />
         <div className="relative mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 lg:px-8">
           <p className="eyebrow text-background/70">Let's build your line</p>
           <h2 className="mt-4 text-4xl font-bold sm:text-5xl lg:text-6xl">
             Your brand. Our factory.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-background/80">
-            Request a digital catalog, send a tech-pack, or schedule a video tour of our Sialkot facility.
+            Request a digital catalog, send a tech-pack, or schedule a video tour of our Sialkot
+            facility.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link to="/contact" className="eyebrow inline-flex items-center gap-2 bg-brand px-6 py-3.5 text-brand-foreground hover:bg-brand/90">
+            <Link
+              to="/contact"
+              className="eyebrow inline-flex items-center gap-2 bg-brand px-6 py-3.5 text-brand-foreground hover:bg-brand/90"
+            >
               Contact Us
             </Link>
-            <Link to="/categories" className="eyebrow inline-flex items-center gap-2 border border-background px-6 py-3.5 hover:bg-background hover:text-foreground">
+            <Link
+              to="/categories"
+              className="eyebrow inline-flex items-center gap-2 border border-background px-6 py-3.5 hover:bg-background hover:text-foreground"
+            >
               Browse Catalog
             </Link>
           </div>

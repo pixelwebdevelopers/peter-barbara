@@ -40,9 +40,16 @@ export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
       { title: "FAQ — Peter & Barbara Sportswear" },
-      { name: "description", content: "Common questions about B2B sportswear manufacturing, MOQs, lead times, shipping and customization." },
+      {
+        name: "description",
+        content:
+          "Common questions about B2B sportswear manufacturing, MOQs, lead times, shipping and customization.",
+      },
       { property: "og:title", content: "FAQ — Peter & Barbara Sportswear" },
-      { property: "og:description", content: "Common questions about working with our Sialkot factory." },
+      {
+        property: "og:description",
+        content: "Common questions about working with our Sialkot factory.",
+      },
     ],
   }),
   component: FAQ,
@@ -53,9 +60,7 @@ function FAQ() {
     <SiteLayout>
       <section className="mx-auto max-w-4xl px-4 pt-24 pb-12 sm:px-6 lg:px-8">
         <p className="eyebrow text-brand">FAQ</p>
-        <h1 className="mt-3 text-5xl font-bold tracking-tight sm:text-6xl">
-          Working with us.
-        </h1>
+        <h1 className="mt-3 text-5xl font-bold tracking-tight sm:text-6xl">Working with us.</h1>
         <p className="mt-4 text-muted-foreground">
           Everything you need to know before placing your first order.
         </p>
@@ -67,7 +72,9 @@ function FAQ() {
             <details key={f.q} className="group py-6 [&_summary::-webkit-details-marker]:hidden">
               <summary className="flex cursor-pointer items-start justify-between gap-6">
                 <h2 className="text-lg font-semibold sm:text-xl">{f.q}</h2>
-                <span className="mt-1 text-2xl font-light text-brand transition-transform group-open:rotate-45">+</span>
+                <span className="mt-1 text-2xl font-light text-brand transition-transform group-open:rotate-45">
+                  +
+                </span>
               </summary>
               <p className="mt-4 pr-12 text-muted-foreground">{f.a}</p>
             </details>

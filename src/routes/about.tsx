@@ -5,7 +5,11 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Peter & Barbara Sportswear, Sialkot Pakistan" },
-      { name: "description", content: "Peter & Barbara is a B2B sportswear manufacturer based in Sialkot, Pakistan. We supply international brands and importers with premium technical apparel." },
+      {
+        name: "description",
+        content:
+          "Peter & Barbara is a B2B sportswear manufacturer based in Sialkot, Pakistan. We supply international brands and importers with premium technical apparel.",
+      },
       { property: "og:title", content: "About Peter & Barbara Sportswear" },
       { property: "og:description", content: "B2B sportswear manufacturer in Sialkot, Pakistan." },
     ],
@@ -30,10 +34,15 @@ function About() {
           </div>
           <div className="space-y-6 text-lg leading-relaxed lg:col-span-8">
             <p>
-              Peter & Barbara Sportswear is a B2B manufacturer based in Sialkot, Pakistan — the city that has supplied the world's sporting goods for over a century. We work exclusively with international brands, importers and federations who need a reliable production partner for technical apparel.
+              Peter & Barbara Sportswear is a B2B manufacturer based in Sialkot, Pakistan — the city
+              that has supplied the world's sporting goods for over a century. We work exclusively
+              with international brands, importers and federations who need a reliable production
+              partner for technical apparel.
             </p>
             <p>
-              From activewear and team uniforms to sport-specific kits and accessories, every garment leaves our factory built to perform. We don't sell to consumers. We sell to the brands that do.
+              From activewear and team uniforms to sport-specific kits and accessories, every
+              garment leaves our factory built to perform. We don't sell to consumers. We sell to
+              the brands that do.
             </p>
           </div>
         </div>
@@ -46,12 +55,24 @@ function About() {
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:col-span-8">
             {[
-              ["Full-Package Manufacturing", "Fabric sourcing, cutting, sewing, printing, embroidery and finishing — all in-house."],
-              ["Custom Sublimation", "Edge-to-edge dye sublimation for unlimited colors, gradients and patterns."],
-              ["Low MOQs", "Programs start from 100–500 units per style. Scale up to 50,000+ units per season."],
+              [
+                "Full-Package Manufacturing",
+                "Fabric sourcing, cutting, sewing, printing, embroidery and finishing — all in-house.",
+              ],
+              [
+                "Custom Sublimation",
+                "Edge-to-edge dye sublimation for unlimited colors, gradients and patterns.",
+              ],
+              [
+                "Low MOQs",
+                "Programs start from 100–500 units per style. Scale up to 50,000+ units per season.",
+              ],
               ["Rapid Sampling", "Sample turnaround in 7–14 days. Bulk production in 30–45 days."],
               ["Quality Control", "Mid-line and final QC with full inspection reports."],
-              ["Ethical Production", "Audited facility with documented compliance for EU and US markets."],
+              [
+                "Ethical Production",
+                "Audited facility with documented compliance for EU and US markets.",
+              ],
             ].map(([t, d]) => (
               <div key={t} className="border-t border-foreground pt-4">
                 <h3 className="text-base font-bold">{t}</h3>

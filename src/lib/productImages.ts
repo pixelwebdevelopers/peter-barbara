@@ -6,10 +6,11 @@
 //
 // Vite resolves this glob at build time, emits each image with a content-hashed,
 // cache-friendly URL, and inlines the resulting { path -> url } map below.
-const files = import.meta.glob(
-  "../assets/products/**/*.{jpg,jpeg,png,webp,avif}",
-  { eager: true, query: "?url", import: "default" },
-) as Record<string, string>;
+const files = import.meta.glob("../assets/products/**/*.{jpg,jpeg,png,webp,avif}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
 
 export type ProductImage = {
   categorySlug: string;
@@ -61,7 +62,7 @@ for (const [path, url] of Object.entries(files)) {
 
   if (remaining.length === 2) {
     productKey = remaining[0]; // e.g. "1" (folder name)
-    fileName = remaining[1];   // e.g. "1.webp" (file name)
+    fileName = remaining[1]; // e.g. "1.webp" (file name)
     isFolder = true;
   } else {
     productKey = remaining[0]; // e.g. "4.webp"
@@ -172,4 +173,3 @@ export function getCoverImage(categorySlug: string, subSlug: string): string | u
 
 /** Every product image across the catalog. */
 export const ALL_PRODUCT_IMAGES = all;
-

@@ -7,7 +7,10 @@ export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
       { title: "All Categories — Peter & Barbara Sportswear" },
-      { name: "description", content: "Browse all seven sportswear categories manufactured by Peter & Barbara." },
+      {
+        name: "description",
+        content: "Browse all seven sportswear categories manufactured by Peter & Barbara.",
+      },
       { property: "og:title", content: "All Categories — Peter & Barbara Sportswear" },
       { property: "og:description", content: "Browse all seven sportswear categories." },
     ],
@@ -22,7 +25,8 @@ function CategoriesIndex() {
         <p className="eyebrow text-brand">Catalog</p>
         <h1 className="mt-3 text-5xl font-bold tracking-tight sm:text-6xl">All Categories</h1>
         <p className="mt-4 max-w-2xl text-muted-foreground">
-          Seven complete product families. Each engineered for its sport, manufactured to your specification.
+          Seven complete product families. Each engineered for its sport, manufactured to your
+          specification.
         </p>
       </section>
 
@@ -40,7 +44,9 @@ function CategoriesIndex() {
               </span>
               <div className="col-span-7">
                 <h2 className="text-2xl font-bold sm:text-3xl">{cat.name}</h2>
-                <p className="mt-1 text-sm text-muted-foreground group-hover:text-background/70">{cat.tagline}</p>
+                <p className="mt-1 text-sm text-muted-foreground group-hover:text-background/70">
+                  {cat.tagline}
+                </p>
               </div>
               <div className="col-span-2 hidden text-sm text-muted-foreground group-hover:text-background/70 sm:block">
                 {cat.subcategories.length} types

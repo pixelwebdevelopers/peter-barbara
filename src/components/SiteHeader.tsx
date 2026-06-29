@@ -51,10 +51,19 @@ export function SiteHeader() {
               </div>
             )}
           </div>
-          <Link to="/categories" className="eyebrow hover:text-brand">All Products</Link>
-          <Link to="/about" className="eyebrow hover:text-brand">About</Link>
-          <Link to="/faq" className="eyebrow hover:text-brand">FAQ</Link>
-          <Link to="/contact" className="eyebrow rounded-none border border-foreground bg-foreground px-4 py-2 text-background hover:border-brand hover:bg-brand">
+          <Link to="/categories" className="eyebrow hover:text-brand">
+            All Products
+          </Link>
+          <Link to="/about" className="eyebrow hover:text-brand">
+            About
+          </Link>
+          <Link to="/faq" className="eyebrow hover:text-brand">
+            FAQ
+          </Link>
+          <Link
+            to="/contact"
+            className="eyebrow rounded-none border border-foreground bg-foreground px-4 py-2 text-background hover:border-brand hover:bg-brand"
+          >
             Contact
           </Link>
         </nav>
@@ -81,7 +90,9 @@ export function SiteHeader() {
               aria-expanded={mobileCatsOpen}
             >
               Categories
-              <ChevronDown className={`h-5 w-5 transition-transform ${mobileCatsOpen ? "rotate-180" : ""}`} />
+              <ChevronDown
+                className={`h-5 w-5 transition-transform ${mobileCatsOpen ? "rotate-180" : ""}`}
+              />
             </button>
             {mobileCatsOpen && (
               <ul className="mb-2 space-y-0.5 border-l border-border pl-4">
@@ -102,9 +113,27 @@ export function SiteHeader() {
             )}
 
             <div className="divide-y divide-border border-t border-border">
-              <Link to="/categories" onClick={() => setOpen(false)} className="block py-3.5 text-base font-medium">All Products</Link>
-              <Link to="/about" onClick={() => setOpen(false)} className="block py-3.5 text-base font-medium">About</Link>
-              <Link to="/faq" onClick={() => setOpen(false)} className="block py-3.5 text-base font-medium">FAQ</Link>
+              <Link
+                to="/categories"
+                onClick={() => setOpen(false)}
+                className="block py-3.5 text-base font-medium"
+              >
+                All Products
+              </Link>
+              <Link
+                to="/about"
+                onClick={() => setOpen(false)}
+                className="block py-3.5 text-base font-medium"
+              >
+                About
+              </Link>
+              <Link
+                to="/faq"
+                onClick={() => setOpen(false)}
+                className="block py-3.5 text-base font-medium"
+              >
+                FAQ
+              </Link>
             </div>
 
             <Link
