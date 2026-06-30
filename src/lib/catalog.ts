@@ -254,6 +254,13 @@ export const CATEGORIES: Category[] = [
         description: "Jerseys, bib shorts and gilets with race-cut construction.",
       },
       {
+        slug: "fishing-wear",
+        name: "Fishing Wear",
+        sku: "PB-SS-FW",
+        description:
+          "UV-protection shirts, lightweight jackets, and performance apparel designed for anglers.",
+      },
+      {
         slug: "swimwear",
         name: "Swimwear",
         sku: "PB-SS-SW",
