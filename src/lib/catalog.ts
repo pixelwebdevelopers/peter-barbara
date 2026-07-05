@@ -203,6 +203,13 @@ export const CATEGORIES: Category[] = [
         description:
           "Insulated outerwear with quilted shells and warm synthetic down filling for cold climates.",
       },
+      {
+        slug: "lifestyle-sportswear",
+        name: "Lifestyle Sportswear",
+        sku: "PB-OW-LS",
+        description:
+          "Versatile tracksuits, hoodies, joggers, and layering essentials designed for daily wear.",
+      },
     ],
   },
   {
@@ -313,10 +320,28 @@ export const CATEGORIES: Category[] = [
         description: "Duffles and backpacks in ballistic nylon and cordura.",
       },
       {
-        slug: "gloves",
-        name: "Gloves",
-        sku: "PB-AC-GL",
-        description: "Training, lifting and cycling gloves with padded palms.",
+        slug: "cycling-gloves",
+        name: "Cycling Gloves",
+        sku: "PB-AC-CG",
+        description: "Professional cycling gloves with padded palms and breathable backs.",
+      },
+      {
+        slug: "goalkeeper-gloves",
+        name: "Goalkeeper Gloves",
+        sku: "PB-AC-GG",
+        description: "High-grip latex palms and support systems for goalkeepers.",
+      },
+      {
+        slug: "golf-gloves",
+        name: "Golf Gloves",
+        sku: "PB-AC-GF",
+        description: "Premium cabretta leather gloves for ultimate grip and feel.",
+      },
+      {
+        slug: "gym-gloves",
+        name: "Gym Gloves",
+        sku: "PB-AC-GY",
+        description: "Heavy-duty lifting gloves with wrist wraps and textured palms.",
       },
     ],
   },
