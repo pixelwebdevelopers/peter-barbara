@@ -13,7 +13,7 @@ import { PasswordGate } from "@/components/PasswordGate";
 
 import appCss from "../styles.css?url";
 import faviconUrl from "@/assets/favicon.png";
-import logoUrl from "@/assets/Logo.png";
+import logoUrl from "@/assets/logo.png";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Lock, Eye, EyeOff, ShieldAlert, Phone } from "lucide-react";
 import { PAKISTAN_ACCESS_PASSWORD, WHATSAPP_NUMBER } from "@/lib/catalog";
-import logoUrl from "@/assets/Logo.png";
+import logoUrl from "@/assets/logo.png";
 import bgUrl from "@/assets/hero-1-1.jpg";
 
 type Props = {
