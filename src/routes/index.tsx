@@ -24,8 +24,11 @@ import hero12 from "@/assets/hero-1-2.jpg";
 import hero13 from "@/assets/hero-1-3.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
+import hero4 from "@/assets/hero-4.png";
+import hero5 from "@/assets/hero-5.png";
+import hero6 from "@/assets/hero-6.png";
 
-const HERO_SLIDES = [hero11, hero12, hero13];
+const HERO_SLIDES = [hero11, hero12, hero13, hero4, hero5, hero6];
 
 // Relevant icon per category (replaces the old 01–07 numbering on the home grid).
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
