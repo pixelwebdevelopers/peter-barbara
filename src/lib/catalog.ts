@@ -344,7 +344,7 @@ export const CATEGORIES: Category[] = [
 export const getCategory = (slug: string) => CATEGORIES.find((c) => c.slug === slug);
 
 export const WHATSAPP_NUMBER = "923279541234"; // Hotline & WhatsApp
-export const CONTACT_EMAIL = "info@peterbarbara.com";
+export const CONTACT_EMAIL = " sportswear@peterbarbara.com";
 export const CONTACT_PHONE = "+92 327 954 1234";
 export const COMPANY_ADDRESS = "Christian Town Muslim Colony, Sialkot Cantt Punjab, Pakistan";
 
