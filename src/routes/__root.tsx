@@ -7,10 +7,13 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { createServerFn } from "@tanstack/react-start";
+import { PasswordGate } from "@/components/PasswordGate";
 
 import appCss from "../styles.css?url";
 import faviconUrl from "@/assets/favicon.png";
+import logoUrl from "@/assets/Logo.png";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -73,6 +76,105 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const checkPakistanAccess = createServerFn({ method: "GET" }).handler(async () => {
+  let isPakistan = false;
+  let isAuthorized = false;
+  let isLocalhost = false;
+  let countryHeaderVal = "";
+
+  try {
+    const { getCookie, getRequestHeader, getRequestUrl } =
+      await import("@tanstack/react-start/server");
+    const requestUrl = getRequestUrl();
+    const url = new URL(requestUrl || "/", "http://localhost");
+    const countryParam = url.searchParams.get("country");
+    const clearAuthParam = url.searchParams.get("clear_auth");
+
+    const hostname = url.hostname;
+    isLocalhost =
+      hostname === "localhost" || hostname === "127.0.0.1" || hostname.startsWith("192.168.");
+
+    const userAgent = getRequestHeader("user-agent") || "";
+    const isBot =
+      /googlebot|bingbot|yandex|baiduspider|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora\slink\spreview|showyoubot|outbrain|pinterest\/0\.|slackbot|vkShare|W3C_Validator/i.test(
+        userAgent,
+      );
+
+    if (!isBot) {
+      let countryHeader =
+        getRequestHeader("x-vercel-ip-country") ||
+        getRequestHeader("cf-ipcountry") ||
+        getRequestHeader("x-country") ||
+        getRequestHeader("x-client-ip-country");
+
+      // Server-side fallback for non-local environments
+      // On localhost, we let client-side lookups run so browser-extension VPNs are respected
+      if (!countryHeader && !isLocalhost) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 1500);
+          const res = await fetch("https://ipapi.co/json/", { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.country_code) {
+              countryHeader = data.country_code;
+              console.log(`[Geo Gate Server] Fallback lookup detected: ${countryHeader}`);
+            }
+          }
+        } catch {
+          // Secondary fallback
+          try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 1500);
+            const res = await fetch("https://api.country.is", { signal: controller.signal });
+            clearTimeout(timeoutId);
+            if (res.ok) {
+              const data = await res.json();
+              if (data && data.country) {
+                countryHeader = data.country;
+                console.log(
+                  `[Geo Gate Server] Secondary fallback lookup detected: ${countryHeader}`,
+                );
+              }
+            }
+          } catch (e2) {
+            console.warn("[Geo Gate Server] Fallback geolocation lookup failed:", e2);
+          }
+        }
+      }
+
+      countryHeaderVal = countryHeader || "";
+
+      // If ?country parameter is explicitly set, use it to override the IP detection
+      if (countryParam) {
+        isPakistan = countryParam.toUpperCase() === "PK";
+      } else {
+        isPakistan = countryHeader?.toUpperCase() === "PK";
+      }
+
+      if (clearAuthParam === "true") {
+        isAuthorized = false;
+      } else {
+        const authCookie = getCookie("pk_auth");
+        isAuthorized = authCookie === "true";
+      }
+    }
+  } catch (err) {
+    console.error("Error in checkPakistanAccess server function:", err);
+  }
+
+  console.log(
+    `[Geo Gate Server] Country Header: "${countryHeaderVal}", isPakistan: ${isPakistan}, isAuthorized: ${isAuthorized}, isLocalhost: ${isLocalhost}`,
+  );
+
+  return {
+    isPakistan,
+    isAuthorized,
+    isLocalhost,
+  };
+});
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
@@ -105,6 +207,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
   }),
+  loader: async () => {
+    return await checkPakistanAccess();
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -127,6 +232,164 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const loaderData = Route.useLoaderData();
+  const router = useRouter();
+  const [unlocked, setUnlocked] = useState(false);
+  const [geoCountry, setGeoCountry] = useState<string | null>(null);
+
+  // Check client-side cookie directly to prevent lock flash after entry
+  const isClientAuthorized =
+    typeof document !== "undefined" && document.cookie.includes("pk_auth=true");
+
+  // Only show a loading screen on localhost / local network while fetching IP fallback
+  // Initialize from loaderData to prevent hydration mismatch!
+  const [loadingGeo, setLoadingGeo] = useState(
+    () => loaderData.isLocalhost && !loaderData.isAuthorized && !isClientAuthorized,
+  );
+
+  // Clear cookie and storage client-side if clear_auth is present in URL query
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search.includes("clear_auth=true")) {
+      document.cookie = "pk_auth=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      localStorage.removeItem("user_country");
+      sessionStorage.removeItem("user_country");
+      console.log("[Password Gate Debug] Authentication cleared.");
+    }
+  }, []);
+
+  // Fallback client-side geolocation check if server doesn't report Pakistan
+  useEffect(() => {
+    if (loaderData.isPakistan) {
+      setLoadingGeo(false);
+      return;
+    }
+
+    // Check query params client-side
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("country")?.toUpperCase() === "PK") {
+        setGeoCountry("PK");
+        setLoadingGeo(false);
+        return;
+      }
+    }
+
+    const cachedCountry = sessionStorage.getItem("user_country");
+    if (cachedCountry) {
+      setGeoCountry(cachedCountry);
+      setLoadingGeo(false);
+      return;
+    }
+
+    // Cascading fetch to find country code
+    fetch("https://ipapi.co/json/")
+      .then((res) => {
+        if (!res.ok) throw new Error("ipapi failed");
+        return res.json();
+      })
+      .then((data) => {
+        if (data && data.country_code) {
+          const code = data.country_code.toUpperCase();
+          sessionStorage.setItem("user_country", code);
+          setGeoCountry(code);
+        }
+      })
+      .catch(() => {
+        // Fallback 1: ipinfo.io
+        return fetch("https://ipinfo.io/json")
+          .then((res) => {
+            if (!res.ok) throw new Error("ipinfo failed");
+            return res.json();
+          })
+          .then((data) => {
+            if (data && data.country) {
+              const code = data.country.toUpperCase();
+              sessionStorage.setItem("user_country", code);
+              setGeoCountry(code);
+            }
+          });
+      })
+      .catch(() => {
+        // Fallback 2: api.country.is
+        return fetch("https://api.country.is")
+          .then((res) => {
+            if (!res.ok) throw new Error("country.is failed");
+            return res.json();
+          })
+          .then((data) => {
+            if (data && data.country) {
+              const code = data.country.toUpperCase();
+              sessionStorage.setItem("user_country", code);
+              setGeoCountry(code);
+            }
+          });
+      })
+      .catch((err) => console.warn("All client-side geo-IP lookup fallbacks failed:", err))
+      .finally(() => {
+        setLoadingGeo(false);
+      });
+  }, [loaderData.isPakistan]);
+
+  // Check if we need to clear auth via query parameter
+  const needsClearAuth =
+    typeof window !== "undefined" && window.location.search.includes("clear_auth=true");
+
+  const isPakistanUser = loaderData.isPakistan || geoCountry === "PK";
+  const isUserAuthorized = (loaderData.isAuthorized || isClientAuthorized) && !needsClearAuth;
+
+  const showGate = isPakistanUser && !isUserAuthorized && !unlocked;
+
+  // Print verbose diagnostics in the developer console for debugging
+  useEffect(() => {
+    console.log("[Password Gate Diagnostics]", {
+      serverReportedPakistan: loaderData.isPakistan,
+      serverReportedAuthorized: loaderData.isAuthorized,
+      clientGeoCountry: geoCountry,
+      clientCookieAuthorized: isClientAuthorized,
+      finalIsPakistanUser: isPakistanUser,
+      finalIsUserAuthorized: isUserAuthorized,
+      reactUnlockedState: unlocked,
+      willShowGateScreen: showGate,
+      loadingGeo,
+    });
+  }, [
+    loaderData,
+    geoCountry,
+    isClientAuthorized,
+    isPakistanUser,
+    isUserAuthorized,
+    unlocked,
+    showGate,
+    loadingGeo,
+  ]);
+
+  if (loadingGeo) {
+    return (
+      <div className="relative flex min-h-screen w-full items-center justify-center bg-black">
+        <div className="flex flex-col items-center gap-5">
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt="Peter & Barbara Logo"
+              className="h-16 w-auto object-contain brightness-0 invert opacity-40 animate-pulse"
+            />
+          )}
+          <div className="h-4 w-4 animate-spin rounded-full border border-white/20 border-t-white/80" />
+        </div>
+      </div>
+    );
+  }
+
+  if (showGate) {
+    return (
+      <PasswordGate
+        onUnlock={() => {
+          setUnlocked(true);
+          router.invalidate();
+        }}
+      />
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

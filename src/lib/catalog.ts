@@ -226,12 +226,6 @@ export const CATEGORIES: Category[] = [
         description: "Four-way stretch leggings with sculpting seams.",
       },
       {
-        slug: "lifestyle",
-        name: "Lifestyle Sportswear",
-        sku: "PB-YL-LS",
-        description: "Crewnecks, joggers and tees for everyday wear.",
-      },
-      {
         slug: "lifestyle-sportswear",
         name: "Lifestyle Sportswear",
         sku: "PB-YL-LSS",
@@ -354,3 +348,5 @@ export function inquireWhatsappLink(productName: string, sku: string) {
   );
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
 }
+
+export const PAKISTAN_ACCESS_PASSWORD = "sialkot2026";
