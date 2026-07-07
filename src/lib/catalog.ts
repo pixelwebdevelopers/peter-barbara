@@ -203,13 +203,6 @@ export const CATEGORIES: Category[] = [
         description:
           "Insulated outerwear with quilted shells and warm synthetic down filling for cold climates.",
       },
-      {
-        slug: "lifestyle-sportswear",
-        name: "Lifestyle Sportswear",
-        sku: "PB-OW-LS",
-        description:
-          "Versatile tracksuits, hoodies, joggers, and layering essentials designed for daily wear.",
-      },
     ],
   },
   {
@@ -237,6 +230,13 @@ export const CATEGORIES: Category[] = [
         name: "Lifestyle Sportswear",
         sku: "PB-YL-LS",
         description: "Crewnecks, joggers and tees for everyday wear.",
+      },
+      {
+        slug: "lifestyle-sportswear",
+        name: "Lifestyle Sportswear",
+        sku: "PB-YL-LSS",
+        description:
+          "Versatile tracksuits, hoodies, joggers, and layering essentials designed for daily wear.",
       },
       {
         slug: "casual",
@@ -274,12 +274,6 @@ export const CATEGORIES: Category[] = [
         description: "Chlorine-resistant racing and training swimwear.",
       },
       {
-        slug: "tennis",
-        name: "Tennis Wear",
-        sku: "PB-SS-TN",
-        description: "Polos, skirts and shorts in performance pique.",
-      },
-      {
         slug: "golf",
         name: "Golf Wear",
         sku: "PB-SS-GF",
@@ -314,8 +308,8 @@ export const CATEGORIES: Category[] = [
         description: "Crew, ankle and compression socks in technical blends.",
       },
       {
-        slug: "gym-bags",
-        name: "Gym Bags",
+        slug: "bags",
+        name: "Bags",
         sku: "PB-AC-GB",
         description: "Duffles and backpacks in ballistic nylon and cordura.",
       },
