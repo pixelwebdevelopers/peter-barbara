@@ -1,7 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
-import { WHATSAPP_NUMBER, CONTACT_EMAIL, CONTACT_PHONE, COMPANY_ADDRESS } from "@/lib/catalog";
-import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
+import {
+  WHATSAPP_NUMBER,
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  COMPANY_ADDRESS,
+  INSTAGRAM_URL,
+  FACEBOOK_URL,
+} from "@/lib/catalog";
+import { Mail, Phone, MapPin, MessageCircle, Instagram, Facebook } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/contact")({
@@ -101,6 +108,40 @@ function Contact() {
                       className="text-sm text-muted-foreground hover:text-brand"
                     >
                       Chat instantly
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="border-t border-border pt-8">
+              <p className="eyebrow text-muted-foreground">Social</p>
+              <ul className="mt-4 space-y-4">
+                <li className="flex gap-3">
+                  <Instagram className="mt-0.5 h-5 w-5 text-brand" />
+                  <div>
+                    <p className="text-sm font-medium">Instagram</p>
+                    <a
+                      href={INSTAGRAM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground hover:text-brand"
+                    >
+                      @peterandbarbarasportswear
+                    </a>
+                  </div>
+                </li>
+                <li className="flex gap-3">
+                  <Facebook className="mt-0.5 h-5 w-5 text-brand" />
+                  <div>
+                    <p className="text-sm font-medium">Facebook</p>
+                    <a
+                      href={FACEBOOK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground hover:text-brand"
+                    >
+                      peterbarbarasports
                     </a>
                   </div>
                 </li>

@@ -1,7 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import pixelLogo from "@/assets/pixel-web.png";
-import { CATEGORIES, CONTACT_EMAIL, CONTACT_PHONE, COMPANY_ADDRESS } from "@/lib/catalog";
+import {
+  CATEGORIES,
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  COMPANY_ADDRESS,
+  INSTAGRAM_URL,
+  FACEBOOK_URL,
+} from "@/lib/catalog";
+import { Instagram, Facebook } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -14,6 +22,29 @@ export function SiteFooter() {
               B2B sportswear manufacturer based in Sialkot, Pakistan — supplying premium activewear,
               team kits and accessories to international brands and importers.
             </p>
+            <div className="mt-6">
+              <p className="eyebrow text-xs text-muted-foreground">Follow Us</p>
+              <div className="mt-3 flex items-center gap-2.5">
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Peter & Barbara Sportswear on Instagram"
+                  className="inline-flex h-9 w-9 items-center justify-center border border-border bg-background text-muted-foreground transition-all hover:border-brand hover:bg-brand hover:text-brand-foreground"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Peter & Barbara Sportswear on Facebook"
+                  className="inline-flex h-9 w-9 items-center justify-center border border-border bg-background text-muted-foreground transition-all hover:border-brand hover:bg-brand hover:text-brand-foreground"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
           </div>
 
           <div className="lg:col-span-2">
@@ -60,16 +91,39 @@ export function SiteFooter() {
             <p>© {new Date().getFullYear()} Peter & Barbara Sportswear. All rights reserved.</p>
             <p>Built for performance. Manufactured in Sialkot, Pakistan.</p>
           </div>
-          <a
-            href="https://pixelwebdevelopers.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 transition-colors hover:text-brand"
-          >
-            <span>Developed by</span>
-            <img src={pixelLogo} alt="Pixel Web Developers" className="h-6 w-auto" />
-            <span className="font-medium">Pixel Web Developers</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex items-center gap-4">
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-brand"
+              >
+                <Instagram className="h-3.5 w-3.5" />
+                <span>Instagram</span>
+              </a>
+              <span className="text-border">·</span>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-brand"
+              >
+                <Facebook className="h-3.5 w-3.5" />
+                <span>Facebook</span>
+              </a>
+            </div>
+            <a
+              href="https://pixelwebdevelopers.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 transition-colors hover:text-brand"
+            >
+              <span>Developed by</span>
+              <img src={pixelLogo} alt="Pixel Web Developers" className="h-6 w-auto" />
+              <span className="font-medium">Pixel Web Developers</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
